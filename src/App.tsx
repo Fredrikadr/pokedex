@@ -13,6 +13,16 @@ function App() {
         const result = await fetch(apiUrl)
         const data = await result.json()
         console.log(data.results)
+
+        const detailsPromises = data.results.map(async (pokemon: any) => {
+          const response = await fetch(pokemon.url);
+          const detailsData = await response.json();
+          return await detailsData;
+        })
+
+        const allDetails = await Promise.all(detailsPromises);
+        console.log(allDetails)
+
       }
       catch (error: any) {
         console.error(error.message)
