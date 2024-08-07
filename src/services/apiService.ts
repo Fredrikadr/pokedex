@@ -1,14 +1,15 @@
 import { API_URL } from "../constants";
+import { Pokemon, PokemonList } from "../models/Pokemon";
 
 // Fetch list of Pokemon
-export const getPokemonList = async () => {
+export const getPokemonList = async (): Promise<PokemonList> => {
     try {
       const response = await fetch(API_URL);
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.statusText}`);
       }
       const data = await response.json();
-      return data.results;
+      return data;
     } catch (error: any) {
       console.error(`Error fetching pokemon list`, error)
       throw error;
@@ -34,7 +35,7 @@ export const getPokemonList = async () => {
   export const getAllPokemonDetails = async () => {
     try {
       const pokemonList = await getPokemonList();
-      const detailsPromises = pokemonList.map(async (pokemon: any) => {
+      const detailsPromises = pokemonList.results.map(async (pokemon: Pokemon) => {
         return await getPokemonDetails(pokemon.url);
       });
       const allDetails = await Promise.all(detailsPromises);
