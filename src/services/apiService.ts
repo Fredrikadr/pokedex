@@ -32,14 +32,13 @@ export const getPokemonList = async (): Promise<PokemonList> => {
   };
   
   // Fetch details for all Pokemon
-  export const getAllPokemonDetails = async () => {
+  export const getAllPokemonDetails = async (list: Pokemon[]) => {
     try {
-      const pokemonList = await getPokemonList();
-      const detailsPromises = pokemonList.results.map(async (pokemon: Pokemon) => {
+      /* const pokemonList = await getPokemonList(); */
+      const detailsPromises = list.map(async (pokemon: Pokemon) => {
         return await getPokemonDetails(pokemon.url);
       });
       const allDetails = await Promise.all(detailsPromises);
-      console.log(allDetails)
       return allDetails
   
     }
