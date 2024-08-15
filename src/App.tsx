@@ -17,7 +17,7 @@ function App() {
       
       // Fetch list of pokemon and set pokemon list in state
       try {
-        const data = await getPokemonList();
+        const data = await getPokemonList(10);
         setPokemonList(data.results);
 
         const detailsData = await getAllPokemonDetails(data.results);

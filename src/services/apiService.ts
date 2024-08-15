@@ -2,9 +2,9 @@ import { API_URL } from "../constants";
 import { Pokemon, PokemonList } from "../models/Pokemon";
 
 // Fetch list of Pokemon
-export const getPokemonList = async (): Promise<PokemonList> => {
+export const getPokemonList = async (limit: number): Promise<PokemonList> => {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(`${API_URL}/?limit=${limit}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.statusText}`);
       }
