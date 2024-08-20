@@ -2,12 +2,12 @@ import { PokemonDetails, PokemonList } from "../../models/Pokemon";
 
 
 export const mockPokemonList: PokemonList = {
-    count: 2,
+    count: 1302,
     next: null,
     previous: null,
     results: [
-        { name: 'Pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' },
-        { name: 'Bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' }
+        { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' },
+        { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' }
     ]
 }
 
