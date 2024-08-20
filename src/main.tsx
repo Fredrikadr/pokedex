@@ -4,12 +4,6 @@ import App from './App.tsx'
 import './index.css'
 
 
-async function startApp() {
-  if (process.env.NODE_ENV === 'development') {
-    const { worker } = await import('./__tests__/mocks/browser');
-    await worker.start();
-  }
-
   
 
  
@@ -20,6 +14,3 @@ async function startApp() {
   </React.StrictMode>,
 )
 
-}
-
-startApp();
