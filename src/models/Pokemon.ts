@@ -12,6 +12,7 @@ export interface Pokemon {
 
 export interface PokemonDetails {
   name: string;
+  id: number;
   height: number;
   weight: number;
   stats: {
