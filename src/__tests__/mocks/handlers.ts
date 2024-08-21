@@ -38,7 +38,7 @@ export const handlers = [
 
         if (pokemon) {
             return new Response(JSON.stringify({
-                pokemon
+                ...pokemon
 
             }
             ))
