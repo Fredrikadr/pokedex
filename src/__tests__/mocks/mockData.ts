@@ -12,7 +12,7 @@ export const mockPokemonList: PokemonList = {
 }
 
 export const mockPokemonDetails: PokemonDetails[] = [{
-    name: 'Pikachu',
+    name: 'pikachu',
     id: 25,
     height: 4, 
     weight: 60, 
@@ -70,7 +70,7 @@ export const mockPokemonDetails: PokemonDetails[] = [{
     ],
 },
 {
-    name: 'Bulbasaur',
+    name: 'bulbasaur',
     id: 1,
     height: 7,
     weight: 69,
