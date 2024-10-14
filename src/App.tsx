@@ -14,7 +14,7 @@ function App() {
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
-      
+
       // Fetch list of pokemon and set pokemon list in state
       try {
         const data = await getPokemonList(10);
@@ -38,15 +38,26 @@ function App() {
 
   useEffect(() => {
     console.log(detailsList, "details")
-    
+
   }, [detailsList]);
 
   return (
-    <>
-    {isLoading && <p>Loading...</p>}
-    {error && <p>{error}</p>}
-      <p>Hello world</p>
-    </>
+    <main>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      <div className="container mx-auto flex grid sm:grid-cols-1 md:grid-cols-4 gap-10">
+                {detailsList.map((pokemon, index) => (
+          <div className=" bg-white  rounded-lg flex flex-col shadow-md">
+            <div className="shadow-sm border rounded-b-lg w-8/12 text-center mx-auto p-2 mt-0">
+            <h3 className="" key={index}>{pokemon.name}</h3>
+            </div>
+            <img className="w-56 m-auto" src={pokemon.sprites.front_default}></img>
+          </div>
+        ))}
+      </div>
+
+      </main>
+
   )
 };
 
