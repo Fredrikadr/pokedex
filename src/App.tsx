@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getAllPokemonDetails, getPokemonList } from './services/apiService';
 import './App.css'
 import { PokemonList, Pokemon, PokemonDetails } from './models/Pokemon';
+import PokemonCard from './components/PokemonCard';
 
 function App() {
 
@@ -47,12 +48,7 @@ function App() {
       {error && <p>{error}</p>}
       <div className="container mx-auto flex grid sm:grid-cols-1 md:grid-cols-4 gap-10">
                 {detailsList.map((pokemon, index) => (
-          <div className=" bg-white  rounded-lg flex flex-col shadow-md">
-            <div className="shadow-sm border rounded-b-lg w-8/12 text-center mx-auto p-2 mt-0">
-            <h3 className="" key={index}>{pokemon.name}</h3>
-            </div>
-            <img className="w-56 m-auto" src={pokemon.sprites.front_default}></img>
-          </div>
+          <PokemonCard index={index} pokemon={pokemon}/>
         ))}
       </div>
 
