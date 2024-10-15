@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
-import { getAllPokemonDetails, getPokemonDetails, getPokemonList } from '../../services/apiService';
+import { getAllPokemonDetails, getPokemonDetails, getPokemonList, getPokemonSpeciesList } from '../../services/apiService';
 import { API_URL } from '../../constants';
 import { mockPokemonList } from '../mocks/mockData';
 import { Pokemon } from '../../models/Pokemon';
@@ -10,6 +10,18 @@ describe('getPokemonList', () => {
         const result = await getPokemonList(2);
 
         expect(result.count).toBe(1302);
+        expect(result.results).toHaveLength(2);
+        expect(result.results[0].name).toBe('pikachu');
+        expect(result.results[1].name).toBe('bulbasaur');
+
+    })
+})
+
+describe('getPokemonSpeciesList', () => {
+    it('should fetch and return pokemon list', async () => {
+        const result = await getPokemonSpeciesList();
+
+        expect(result.count).toBe(1025);
         expect(result.results).toHaveLength(2);
         expect(result.results[0].name).toBe('pikachu');
         expect(result.results[1].name).toBe('bulbasaur');
