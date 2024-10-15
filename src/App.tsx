@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react'
-import { getAllPokemonDetails, getPokemonList, getPokemonSpeciesList } from './services/apiService';
+import { getAllPokemonDetails, getPokemonDetails, getPokemonList, getPokemonSpeciesList } from './services/apiService';
 import './App.css'
 import { PokemonList, Pokemon, PokemonDetails } from './models/Pokemon';
 import PokemonCard from './components/PokemonCard';
+import Header from './components/Header';
+import Footer from './components/Footer';
+
 
 function App() {
 
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [detailsList, setDetailsList] = useState<PokemonDetails[]>([]);
-  const [searchList, setSearchList] = useState<PokemonList[]>([])
+  const [searchList, setSearchList] = useState<Pokemon[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>(null);
 
   // Set initial list of pokemon to populate the page and get list of all pokemon for search
   useEffect(() => {
@@ -47,31 +51,46 @@ function App() {
 
   }, [detailsList]);
 
+  const searchAndAddDetails = async (name: string) => {
+    const existingPokemon = detailsList.find(pokemon => pokemon.name === name);
+
+    if (!existingPokemon) {
+      const pokemonIndex = searchList.findIndex(pokemon => pokemon.name == name).toString()
+      const newDetailsData = await getPokemonDetails(pokemonIndex)
+
+      setDetailsList(prevDetailsList => [...prevDetailsList, newDetailsData])
+
+      return newDetailsData;
+    } else return existingPokemon;
+
+  }
+
+  const handleSelectPokemon = async (name: string) => {
+    setSelectedPokemon(await searchAndAddDetails(name))
+  }
+
   return (
     <>
-      <header className="px-5 drop-shadow-2xl bg-gradient-to-t from-light-red to-dark-red text-white h-32 flex items-center justify-center">
-        <h1 className="text-7xl">Pokédex</h1>
-      </header>
+      <Header />
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
 
-      <div className="flex items-center justify-center sticky top-0">
-      <input className="p-2" placeholder="Search for pokemon"></input>
-      <div className="bg-dark-blue text-white">Search</div>
-      </div>
-      
-      <main className="p-10" >
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        <div className="container mx-auto flex grid sm:grid-cols-1 md:grid-cols-4 gap-12">
-          {detailsList.map((pokemon, index) => (
-            <PokemonCard key={index} pokemon={pokemon}/>
-          ))}
-        </div>
-      </main>
-      <footer className="h-20 bg-dark-red"></footer>
+      {selectedPokemon &&
 
+          <p>Selected pokemon: {selectedPokemon.name}</p>
+        }
+
+      {!selectedPokemon &&
+        
+          <main className="p-10" >
+            <div className="container mx-auto flex grid sm:grid-cols-1 md:grid-cols-4 gap-12">
+              {detailsList.map((pokemon, index) => (
+                <PokemonCard key={index} pokemon={pokemon} selectPokemon={handleSelectPokemon} />
+              ))}
+            </div>
+          </main>
+      }
+    <Footer />
     </>
-
-  )
-};
-
-export default App
+)}
+      export default App

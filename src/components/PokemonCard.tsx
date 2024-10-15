@@ -2,11 +2,13 @@ import { PokemonDetails } from "../models/Pokemon";
 
 type PokemonCardProps = {
   pokemon: PokemonDetails;
+  selectPokemon: (name: string) => void
 };
 
-export default function PokemonCard({ pokemon }: PokemonCardProps) {
+export default function PokemonCard({ pokemon, selectPokemon }: PokemonCardProps) {
   return (
-    <div className=" bg-white  rounded-lg flex flex-col shadow-md group">
+    <div className=" bg-white  rounded-lg flex flex-col shadow-md group"
+      onClick={() => selectPokemon(pokemon.name)}>
       <div className="shadow-sm border rounded-b-lg w-8/12 text-center mx-auto p-2 mt-0">
         <h3 className="">{pokemon.name}</h3>
       </div>
