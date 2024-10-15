@@ -1,6 +1,6 @@
 import { http } from 'msw';
 import { API_URL } from '../../constants';
-import { mockPokemonList, mockPokemonDetails } from './mockData';
+import { mockPokemonList, mockPokemonDetails, mockPokemonSpeciesList } from './mockData';
 
 
 
@@ -30,6 +30,26 @@ export const handlers = [
 
     }),
 
+    // Handler for fetching list of all pokemon names for easier search
+    http.get(`${API_URL}-species/`, () => {
+        console.log('Captured a request: Pokemon species list')
+
+        const limitedResults = mockPokemonSpeciesList.results;
+        if (limitedResults) {
+            return new Response(JSON.stringify({
+                ...mockPokemonSpeciesList,
+                results: limitedResults
+            }))
+        }
+        else {
+            return new Response(JSON.stringify({ error: 'Pokemon list not found.' }), { status: 404 })
+        }
+
+
+
+    }),
+
+    // Handler for fetching pokemon details by id
     http.get(`${API_URL}/:id`, ({ params }) => {
         console.log('Captured a request: pokemon id')
         const { id } = params;
