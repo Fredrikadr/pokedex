@@ -11,11 +11,24 @@ export const mockPokemonList: PokemonList = {
     ]
 }
 
+export const mockPokemonSpeciesList: PokemonList = {
+  count: 1025,
+  next: null,
+  previous: null,
+  results: [
+      { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon-species/25/' },
+      { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon-species/1/' }
+  ]
+}
+
 export const mockPokemonDetails: PokemonDetails[] = [{
     name: 'pikachu',
     id: 25,
     height: 4, 
     weight: 60, 
+    sprites: {
+      front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+    },
     stats: [
       {
         base_stat: 35,
@@ -74,6 +87,9 @@ export const mockPokemonDetails: PokemonDetails[] = [{
     id: 1,
     height: 7,
     weight: 69,
+    sprites: {
+      front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    },
     stats: [
         {
             base_stat: 45,
