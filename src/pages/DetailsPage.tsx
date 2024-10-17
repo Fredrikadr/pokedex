@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { PokemonDetails } from "../models/Pokemon";
 import { useEffect, useState } from "react";
+import DetailsCard from "../components/DetailsCard";
 
 type DetailsPageProps = {
     isLoading: boolean;
@@ -16,7 +17,7 @@ export default function DetailsPage({ findAndAddDetails, isLoading }: DetailsPag
         const fetchDetails = async () => {
             try {
                 const pokemon = await findAndAddDetails(name);
-                setPokemon(pokemon)
+                setPokemon(pokemon);
 
             } catch (error) {
                 throw new Error("Failed to find pokemon details.")
@@ -30,7 +31,13 @@ export default function DetailsPage({ findAndAddDetails, isLoading }: DetailsPag
 
     return (
         <>
-            {pokemon && <p>Details page for {pokemon.name}</p>}
+            <main className="flex-grow p-4 w-fit mx-auto">
+                {(isLoading || !pokemon) ? (
+                    <p>Loading</p>
+                ) : (
+                    <DetailsCard pokemon={pokemon}/>
+                )}
+            </main>
         </>
     )
 }
